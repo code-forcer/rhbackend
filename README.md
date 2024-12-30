@@ -1,2 +1,0 @@
-# rhbackend
-rhbackend codebase
