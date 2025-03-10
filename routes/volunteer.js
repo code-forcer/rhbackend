@@ -8,15 +8,14 @@ router.use(bodyParser.json());
 
 // POST: Submit Volunteer Form
 router.post("/volunteers/submit", async (req, res) => {
-  const { name, email, message } = req.body;
+  const { name, email, phone, address, reason, skills, team, hoursPerWeek, availability } = req.body;
 
-  // Validate input
-  if (!name || !email || !message) {
+  if (!name || !email || !phone || !address || !reason || !skills || !team || !hoursPerWeek || !availability) {
     return res.status(400).json({ error: "All fields are required." });
   }
 
   try {
-    const newVolunteer = new Volunteer({ name, email, message });
+    const newVolunteer = new Volunteer({ name, email, phone, address, reason, skills, team, hoursPerWeek, availability });
     await newVolunteer.save();
     res.status(201).json({ message: "Volunteer form submitted successfully!" });
   } catch (error) {
@@ -24,6 +23,7 @@ router.post("/volunteers/submit", async (req, res) => {
     res.status(500).json({ error: "Failed to save volunteer data." });
   }
 });
+
 
 // GET: Retrieve All Volunteers (Admin)
 router.get("/volunteers/", async (req, res) => {
